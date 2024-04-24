@@ -34,7 +34,7 @@ class RequestMapResolver implements HandlerMethodArgumentResolver {
 
     private RequestResponseBodyMethodProcessor bodyProcessor;
 
-    public RequestMapResolver(ApplicationContext applicationContext) {
+    RequestMapResolver(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         this.multipartResolver = applicationContext.getBean(DispatcherServlet.MULTIPART_RESOLVER_BEAN_NAME, MultipartResolver.class);
     }
@@ -56,6 +56,7 @@ class RequestMapResolver implements HandlerMethodArgumentResolver {
         resolveBody(multiValueMap, request, parameter, mavContainer, webRequest, binderFactory);
         doStrip(multiValueMap, annotation.allowStrip());
         doDistinct(multiValueMap, annotation.allowDistinct());
+        // mavContainer.getModel().put("test", 1234); // for jstl
         return MultiValueMap.class.isAssignableFrom(parameter.getParameterType()) ? multiValueMap : toHashMap(multiValueMap);
     }
 
@@ -126,24 +127,6 @@ class RequestMapResolver implements HandlerMethodArgumentResolver {
         });
         return hashMap;
     }
-
-//    @Override
-//    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-//        HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-//        MultiValueMap<String, Object> multiMap = new LinkedMultiValueMap<>();
-//        resolvePath(multiMap, request);
-//        resolveParameter(multiMap, request);
-//        resolveMultipart(multiMap, request);
-//        resolveBody(multiMap, request, parameter, mavContainer, webRequest, binderFactory);
-//        resolveLogin(multiMap, request);
-//        resolveDatatable(multiMap);
-//        // TODO
-//        // jstl에서 path정보를 바로 받도록 하려면 아래를 참고해서 적용하세요.
-//        // mavContainer.getModel().put("test", 1234);
-//
-//        return MapUtils.toSingleDistinctedValueMap(multiMap);
-//    }
-//
 
 //    private void resolveLogin(MultiValueMap<String, Object> map, HttpServletRequest request) {
 //        HttpSession session = request.getSession();
