@@ -27,8 +27,6 @@ import jakarta.servlet.http.HttpServletRequest;
 
 class RequestMapResolver implements HandlerMethodArgumentResolver {
 
-    private static final String DATATABLE_SEARCH_KEY = "_datatable";
-
     private final ApplicationContext applicationContext;
     private final MultipartResolver multipartResolver;
 
@@ -127,6 +125,8 @@ class RequestMapResolver implements HandlerMethodArgumentResolver {
         });
         return hashMap;
     }
+
+    private static final String DATATABLE_SEARCH_KEY = "_datatable";
 
 //    private void resolveLogin(MultiValueMap<String, Object> map, HttpServletRequest request) {
 //        HttpSession session = request.getSession();
