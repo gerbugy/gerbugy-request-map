@@ -2,8 +2,3 @@ target/
 .classpath
 .project
 .settings
-.factorypath
-logs/
-.mvn/
-mvnw
-mvnw.cmd
